@@ -1,0 +1,33 @@
+{
+  "name": "Push to talk",
+  "description": "Push to talk extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Open settings"
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "js": ["static/js/injection.js"],
+      "matches": ["https://meet.google.com/*"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/auto-mute-disabled.png"],
+      "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["icons/auto-mute.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

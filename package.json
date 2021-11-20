@@ -1,0 +1,16 @@
+{
+  "name": "push-to-talk",
+  "version": "1.0.0",
+  "description": "Push to talk Google Meet",
+  "scripts": {
+    "format:extension": "cd extension && yarn format",
+    "lint:extension": "cd extension && yarn lint",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "HTG",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^7.0.4"
+  }
+}
