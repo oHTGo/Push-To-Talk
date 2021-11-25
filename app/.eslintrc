@@ -1,0 +1,24 @@
+{
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "no-await-in-loop": "error",
+    "implicit-arrow-linebreak": "error",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "prettier/prettier": "error"
+  }
+}

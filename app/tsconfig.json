@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "DOM"
+    ],
+    "module": "CommonJS",
+    "target": "ES5",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
