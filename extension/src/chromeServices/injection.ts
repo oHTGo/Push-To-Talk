@@ -1,5 +1,8 @@
 import { IDelayer } from '../interfaces/IDelayer.interface';
 import { IStatus } from '../interfaces/IStatus.interface';
+import { IShortcutService } from './shortcutServices/IShortcutService';
+import { ShortcutServiceFactory } from './shortcutServices/ShortcutServiceFactory';
+import { ShortcutServiceType } from './shortcutServices/ShortcutServiceType';
 
 class InjectScript {
   private readonly pushToTalkClassName = 'push-to-talk';
@@ -14,8 +17,12 @@ class InjectScript {
   private delayer: IDelayer = {
     startup: 250,
     ui: 1000,
-    service: 500,
+    service: 50,
   };
+
+  private isPressing: boolean = false;
+
+  private shortcutService!: IShortcutService;
 
   getButtonBar() {
     return document.querySelector('.SGP0hd.kunNie');
@@ -29,12 +36,13 @@ class InjectScript {
     return document.querySelector('[jsname="R3GXJb"] [data-is-muted]') as HTMLButtonElement;
   }
 
-  delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
   async init() {
     this.startup();
     this.addUI();
     this.runService();
+
+    this.shortcutService = ShortcutServiceFactory.getShortcutService(ShortcutServiceType.LOCAL);
+    this.shortcutService.init((message) => console.log(message));
   }
 
   startup() {
@@ -47,7 +55,7 @@ class InjectScript {
       if (
         microButton &&
         this.startupStatus.turnOffMicroEnabled &&
-        this.checkStatusButton(microButton) !== this.startupStatus.turnOffMicroEnabled
+        this.checkMutedButton(microButton) !== this.startupStatus.turnOffMicroEnabled
       ) {
         microButton.click();
       }
@@ -55,14 +63,14 @@ class InjectScript {
       if (
         cameraButton &&
         this.startupStatus.turnOffCameraEnabled &&
-        this.checkStatusButton(cameraButton) !== this.startupStatus.turnOffCameraEnabled
+        this.checkMutedButton(cameraButton) !== this.startupStatus.turnOffCameraEnabled
       ) {
         cameraButton.click();
       }
     }, this.delayer.startup);
   }
 
-  checkStatusButton(button: HTMLButtonElement): boolean {
+  checkMutedButton(button: HTMLButtonElement): boolean {
     const status = button.getAttribute('data-is-muted');
     if (!status) return false;
 
@@ -121,6 +129,9 @@ class InjectScript {
   onPushToTalkModeButtonClick() {
     const autoMute = (this.pushToTalkEnabled = !this.pushToTalkEnabled);
 
+    if (this.pushToTalkEnabled) this.shortcutService.enable();
+    else this.shortcutService.disable();
+
     const btn: HTMLButtonElement = document.querySelector(
       `.${this.pushToTalkClassName}`,
     ) as HTMLButtonElement;
@@ -129,14 +140,36 @@ class InjectScript {
     icon.src = chrome.runtime.getURL(`icons/auto-mute${!autoMute ? '-disabled' : ''}.png`);
   }
 
-  async runService() {
+  runService() {
     setTimeout(() => {
-      const microButton = this.getMicroButton();
-      if (microButton && this.pushToTalkEnabled && !this.checkStatusButton(microButton))
-        microButton.click();
+      this.runMicroService();
+
+      this.shortcutService.run(
+        () => {
+          this.isPressing = true;
+        },
+        () => {
+          this.isPressing = false;
+        },
+      );
 
       this.runService();
     }, this.delayer.service);
+  }
+
+  private async runMicroService() {
+    const microButton = this.getMicroButton();
+    if (!microButton) return;
+
+    if (!this.pushToTalkEnabled) return;
+
+    const status = this.checkMutedButton(microButton);
+
+    if (this.isPressing) {
+      if (status) microButton.click();
+    } else {
+      if (!status) microButton.click();
+    }
   }
 }
 new InjectScript().init();
