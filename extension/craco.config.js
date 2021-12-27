@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable arrow-body-style */
 module.exports = {
   webpack: {

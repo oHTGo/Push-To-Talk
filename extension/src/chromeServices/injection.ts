@@ -41,7 +41,7 @@ class InjectScript {
     this.addUI();
     this.runService();
 
-    this.shortcutService = ShortcutServiceFactory.getShortcutService(ShortcutServiceType.LOCAL);
+    this.shortcutService = ShortcutServiceFactory.getShortcutService(ShortcutServiceType.GLOBAL);
     this.shortcutService.init((message) => console.log(message));
   }
 

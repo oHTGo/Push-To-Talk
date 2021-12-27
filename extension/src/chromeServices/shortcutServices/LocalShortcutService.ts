@@ -10,14 +10,14 @@ export class LocalShortcutService implements IShortcutService {
 
   async init(callback: MessageCallback) {
     this.keyDownFunction = (event: any) => {
-      this.keys.set(event.key, true);
+      this.keys.set((<string>event.key).toLowerCase(), true);
     };
     this.keyUpFunction = (event: any) => {
-      this.keys.delete(event.key);
+      this.keys.delete((<string>event.key).toLowerCase());
     };
     callback('Initializing success');
 
-    this.registeredKeys = ['Alt', 'c'];
+    this.setKeys(['shift', 'c']);
   }
 
   enable() {
@@ -42,7 +42,7 @@ export class LocalShortcutService implements IShortcutService {
   }
 
   setKeys(keys: string[]) {
-    this.registeredKeys = keys;
+    this.registeredKeys = keys.map((key: string) => key.toLowerCase());
   }
 
   private checkKeys(): boolean {

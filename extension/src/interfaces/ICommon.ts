@@ -1,6 +1,5 @@
 export interface IRequest2Server {
   token: string;
-  shortcut: string;
 }
 
 export interface IResponse2Client {

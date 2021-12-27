@@ -37,8 +37,7 @@ export class GlobalShortcutService implements IShortcutService {
       setStorage('serverStatus', 'true');
 
       const request: IRequest2Server = {
-        token: 'w6ckm8u12medyyyz4qcw8o',
-        shortcut: 'Alt+X',
+        token: '1',
       };
 
       this.request(request);
