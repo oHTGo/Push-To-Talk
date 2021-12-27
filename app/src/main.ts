@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { ShortcutRegister } from './services/ShortcutRegister';
 import { StorageService } from './services/StorageService';
 import { WebSocketServer } from './services/WebSocketServer';
 
@@ -34,6 +35,10 @@ app.on('ready', () => {
   ipcMain.on('token', (_, token) => {
     wss.setToken(token);
     storage.setToken(token);
+  });
+
+  ipcMain.on('shortcut', () => {
+    ShortcutRegister.setShortcut();
   });
 
   createWindow();

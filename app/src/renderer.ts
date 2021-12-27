@@ -21,6 +21,10 @@ document.getElementById('save-btn').addEventListener('click', () => {
   ipcRenderer.send('token', token);
 });
 
+document.getElementById('set-shortcut-btn').addEventListener('click', () => {
+  ipcRenderer.send('shortcut');
+});
+
 window.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendSync('requestToken', '');
   ipcRenderer.once('responseToken', (_, token) => {

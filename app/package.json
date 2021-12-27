@@ -2,30 +2,51 @@
   "name": "push-to-talk-app",
   "version": "1.0.0",
   "description": "Push to talk app",
+  "main": "dist/main.js",
   "scripts": {
-    "start": "npm run build && electron ./dist/main.js",
+    "start": "electron dist/main.js",
+    "dev": "npm run build && electron dist/main.js",
     "build": "tsc && copyfiles -f public/**/* dist",
     "lint": "eslint \"./src/**/*.{js,ts}\" --fix",
-    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
+    "make": "copyfiles --all dist out && copyfiles -f package.json out && cd out && yarn install --prod"
   },
   "keywords": [],
   "author": "HTG",
   "devDependencies": {
     "@types/ini": "^1.3.31",
-    "@types/node": "^12.0.0",
+    "@types/lodash.isequal": "^4.5.5",
+    "@types/node": "^16.11.11",
     "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "copyfiles": "^2.4.1",
+    "electron": "12.2.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "electron": "^16.0.0",
     "ini": "^2.0.0",
+    "iohook": "^0.9.3",
+    "lodash.isequal": "^4.5.0",
     "ws": "^8.2.3"
+  },
+  "iohook": {
+    "targets": [
+      "electron-87"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "ia32"
+    ]
   }
 }

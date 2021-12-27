@@ -1,6 +1,7 @@
 import { IClient } from '../interfaces/IClient';
 import { WebSocket, Server } from 'ws';
 import { ShortcutRegister } from './ShortcutRegister';
+import { IRequest2Server, IResponse2Client } from '../interfaces/ICommon';
 
 export class WebSocketServer {
   private server = new Server({ port: 1111 });
@@ -9,6 +10,7 @@ export class WebSocketServer {
 
   constructor() {
     this.initConnections();
+    this.initShortcut();
   }
 
   private initConnections() {
@@ -25,56 +27,50 @@ export class WebSocketServer {
     });
   }
 
-  public sendMessageToClients(message: string) {
+  public async sendMessageToClients(message: IResponse2Client) {
     this.clients.forEach((client) => {
-      if (client.isLogin) client.webSocket.send(message);
+      if (client.isLogin) client.webSocket.send(JSON.stringify(message));
     });
+  }
+
+  public async sendMessage(ws: WebSocket, message: IResponse2Client) {
+    ws.send(JSON.stringify(message));
   }
 
   public setToken(token: string) {
     this.token = token;
   }
 
-  private setIsLogin(ws: WebSocket) {
+  private login(ws: WebSocket) {
     const client = this.clients.find((client) => client.webSocket == ws);
     if (!client) return;
 
     client.isLogin = true;
   }
 
-  private checkLogin(ws: WebSocket): boolean {
-    const client = this.clients.find((client) => client.webSocket == ws && client.isLogin);
-    return client ? true : false;
-  }
-
-  private setShortcut(keys: string) {
-    const status = ShortcutRegister.register(keys, () => {
-      this.sendMessageToClients('ping');
-    });
-
-    if (status) this.sendMessageToClients('Success');
-    else this.sendMessageToClients('Failure');
+  private initShortcut(): void {
+    ShortcutRegister.register(
+      () => {
+        this.sendMessageToClients({ event: 'down' });
+      },
+      () => {
+        this.sendMessageToClients({ event: 'up' });
+      },
+    );
   }
 
   private executeCommand(ws: WebSocket, data: string) {
     try {
-      const spliter = data.split(':');
-      const command = spliter[0].toLocaleLowerCase();
-      const args = spliter[1] ?? '';
+      const response: IRequest2Server = JSON.parse(data);
 
-      switch (command) {
-        case 'login':
-          if (this.token === args) this.setIsLogin(ws);
-          break;
-        case 'set':
-          if (!this.checkLogin(ws)) return;
-
-          this.setShortcut(args);
-          break;
-        default:
-      }
+      if (response.token != this.token) throw new Error('Invalid token');
+      this.login(ws);
+      this.sendMessage(ws, {
+        error: false,
+      });
     } catch (error) {
       console.error(error);
+      this.sendMessage(ws, { error: true, message: (<Error>error).message });
     }
   }
 }
