@@ -1,0 +1,36 @@
+.container {
+  width: 340px;
+  height: 180px;
+  background-color: #2f323f;
+  margin: 50px auto;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+}
+.header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.label {
+  margin-top: 15px;
+  color: #ffdc82;
+  font-size: 25px;
+}
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 15px;
+  width: 90%;
+}
+.item {
+  height: 30px;
+}
+.footer {
+  height: 80px;
+  background-color: #4d5163;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

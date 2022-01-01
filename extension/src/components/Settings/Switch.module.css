@@ -1,0 +1,116 @@
+.container {
+  position: relative;
+  border-radius: 30px;
+  width: 120px;
+  height: 30px;
+}
+
+.checkbox {
+  appearance: none;
+  position: relative;
+  width: 120px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: #62d08e;
+  outline: none;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.75);
+}
+.checkbox:checked {
+  animation: checking 1s forwards;
+}
+.checkbox:not(:checked) {
+  animation: un-checking 1s forwards;
+}
+@keyframes checking {
+  to {
+    background-color: #626c78;
+  }
+}
+@keyframes un-checking {
+  to {
+    background-color: #62d08e;
+  }
+}
+.checkbox::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 0;
+  height: 20px;
+  background-color: white;
+  border-radius: 30px;
+}
+.checkbox:not(:checked):before {
+  left: 60px;
+  width: 50%;
+  animation: unchecked 1s forwards;
+}
+.checkbox:checked:before {
+  left: 0px;
+  width: 50%;
+  animation: checked 1s forwards;
+}
+@keyframes checked {
+  100% {
+    transform: translateX(95%);
+  }
+}
+@keyframes unchecked {
+  100% {
+    transform: translateX(-95%);
+  }
+}
+
+.status {
+  width: 55px;
+  height: 20px;
+  border-radius: 20px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  z-index: 2;
+}
+.label {
+  font-size: 13px;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+}
+.global {
+  position: absolute;
+  left: 3px;
+}
+.local {
+  position: absolute;
+  right: -50px;
+}
+.global-disabled {
+  animation: global-disabled 0.75s forwards;
+}
+.local-disabled {
+  animation: local-disabled 0.75s forwards;
+}
+@keyframes global-disabled {
+  from {
+    color: black;
+  }
+  to {
+    color: #9d9d9d;
+  }
+}
+
+@keyframes local-disabled {
+  from {
+    color: black;
+  }
+  to {
+    color: #266f43;
+  }
+}

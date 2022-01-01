@@ -1,0 +1,49 @@
+.container {
+  position: relative;
+  width: 340px;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  width: 100%;
+  height: 40px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #2f323f;
+  padding-top: 10px;
+}
+
+.label {
+  width: 50%;
+  color: #9da6c6;
+  cursor: default;
+}
+
+.switch {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
+  text-align: center;
+  width: 65px;
+  height: 25px;
+  margin: auto 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #343d47;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #62d08e;
+}
