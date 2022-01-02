@@ -43,6 +43,7 @@
   height: 20px;
   background-color: white;
   border-radius: 30px;
+  margin: 0 2.5px;
 }
 .checkbox:not(:checked):before {
   left: 60px;
@@ -56,7 +57,7 @@
 }
 @keyframes checked {
   100% {
-    transform: translateX(95%);
+    transform: translateX(87%);
   }
 }
 @keyframes unchecked {
