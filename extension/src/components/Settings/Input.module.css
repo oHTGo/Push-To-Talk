@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+  align-items: center;
   width: 165px;
   height: 25px;
 }
