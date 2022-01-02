@@ -21,6 +21,8 @@
 
 .label {
   width: 50%;
+  font-size: 20px;
+  font-weight: 500;
   color: #9da6c6;
   cursor: default;
 }
@@ -40,7 +42,7 @@
   border-radius: 5px;
   color: #ffffff;
   background-color: #343d47;
-  font-weight: 1000;
+  font-weight: bold;
   cursor: pointer;
 }
 
