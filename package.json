@@ -5,6 +5,8 @@
   "scripts": {
     "format:extension": "cd extension && yarn format",
     "lint:extension": "cd extension && yarn lint",
+    "format:app": "cd app && yarn format",
+    "lint:app": "cd app && yarn lint",
     "prepare": "husky install"
   },
   "keywords": [],

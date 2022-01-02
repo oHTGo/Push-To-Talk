@@ -3,3 +3,5 @@
 
 yarn lint:extension
 yarn format:extension
+yarn lint:app
+yarn format:app
