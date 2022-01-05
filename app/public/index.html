@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Push to talk app</title>
-  </head>
-  <body>
-    <h1>Electron Typescript Beginner's Guide =)</h1>
-    <label>Token</label>
-    <input id="token" type="text" value="">
-    <input id="save-btn" type="button" value="Save">
-    <input id="copy-btn" type="button" value="Copy to clipboard">
-    <input id="generate-btn" type="button" value="Generate to token">
-    <input id="set-shortcut-btn" type="button" value="Set shortcut">
-  </body>
-  <script src="./renderer.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <title>Push to talk app</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="root">
+    <button id="close-btn"></button>
+    <header>Application</header>
+    <div class="controller">
+      <div id="code" class="item">
+        <div class="label">Code</div>
+        <input id="token" type="text" value="" />
+        <button id="save-btn" class="btn">
+          <img id="save-icon" src="icons/save.png" alt="Save" />
+        </button>
+      </div>
+
+      <div class="item tooltip">
+        <div class="tooltip-text">Copy code to clipboard</div>
+        <button id="copy-btn" class="btn">
+          <img id="copy-icon" src="icons/copy.png" alt="Copy" />
+        </button>
+      </div>
+
+      <div class="item tooltip">
+        <div class="tooltip-text">Generate random code</div>
+        <button id="generate-btn" class="btn">
+          <img id="generate-icon" src="icons/generate.png" alt="Generate" />
+        </button>
+      </div>
+
+      <div class="item tooltip">
+        <div class="tooltip-text">Press and hold for 2s to set shortcut</div>
+        <button id="set-shortcut-btn" class="btn">
+          <img id="shortcut-icon" src="icons/shortcut.png" alt="Shortcut" />
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./renderer.js"></script>
 </html>

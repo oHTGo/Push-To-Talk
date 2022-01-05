@@ -1,3 +1,152 @@
-/* styles.css */
+body {
+  margin: 0;
+}
 
-/* Add styles here to customize the appearance of your app */
+#root {
+  width: 400px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(13, 13, 13);
+}
+
+header {
+  background-color: rgba(255, 220, 130, 0.25);
+  width: 50%;
+  height: auto;
+  padding: 5px 0;
+  border: none;
+  border-radius: 20px;
+  color: #ffdc82;
+  text-align: center;
+  font-weight: bold;
+}
+
+.controller {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  width: 35px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #62d08e;
+  border: none;
+  border-radius: 5px;
+  margin: 0 2px;
+  padding: 0;
+  box-sizing: content-box;
+  outline: none;
+  cursor: pointer;
+}
+
+.label {
+  padding-right: 10px;
+  font-weight: bold;
+  color: #9da6c6;
+}
+
+.item {
+  height: 30px;
+}
+
+#close-btn {
+  width: 34px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('./icons/close.png');
+  background-size: 32px 26px;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 5px;
+  left: calc(400px - 35px - 5px);
+}
+#close-btn:hover {
+  border-bottom: 2px solid white;
+}
+
+#code {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#token {
+  height: 30px;
+  margin: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+}
+#save-btn {
+  position: relative;
+  left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: 0;
+}
+#save-icon {
+  width: 21px;
+  height: 21px;
+}
+
+#copy-icon {
+  width: 21px;
+  height: 21px;
+}
+
+#generate-icon {
+  width: 25px;
+  height: 25px;
+}
+
+#shortcut-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 70px;
+  background-color: #2f323f;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 100%;
+  margin-left: -60px;
+}
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+.tooltip .tooltip-text {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.tooltip:hover .tooltip-text {
+  opacity: 1;
+}
