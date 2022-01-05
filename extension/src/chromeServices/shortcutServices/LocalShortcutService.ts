@@ -1,5 +1,6 @@
 import { IShortcutService } from './IShortcutService';
 import { FailureCallback, MessageCallback, SuccessCallback } from './types';
+import { getStorage } from '../storage';
 
 export class LocalShortcutService implements IShortcutService {
   private keyDownFunction: any;
@@ -17,7 +18,8 @@ export class LocalShortcutService implements IShortcutService {
     };
     callback('Initializing success');
 
-    this.setKeys(['shift', 'c']);
+    const shortcut = (await getStorage('Shortcut')) ?? '';
+    this.setKeys(shortcut.split('+'));
   }
 
   enable() {

@@ -1,5 +1,5 @@
 import { IRequest2Server, IResponse2Client } from '../../interfaces/ICommon';
-import { setStorage } from '../storage';
+import { getStorage } from '../storage';
 import { IShortcutService } from './IShortcutService';
 import { FailureCallback, MessageCallback, SuccessCallback } from './types';
 
@@ -32,12 +32,11 @@ export class GlobalShortcutService implements IShortcutService {
   }
 
   private async onOpen() {
+    const code = (await getStorage('Code')) ?? '';
     this.ws.onopen = () => {
       this.isConnected = true;
-      setStorage('serverStatus', 'true');
-
       const request: IRequest2Server = {
-        token: '1',
+        token: code,
       };
 
       this.request(request);
@@ -47,7 +46,6 @@ export class GlobalShortcutService implements IShortcutService {
   private async onClose() {
     this.ws.onclose = () => {
       this.isConnected = false;
-      setStorage('serverStatus', 'false');
     };
   }
 

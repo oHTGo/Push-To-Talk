@@ -1,1 +1,6 @@
-export type StorageType = 'serverStatus';
+export type StorageType =
+  | 'TurnOffMicroEnabled'
+  | 'TurnOffCameraEnabled'
+  | 'IsLocalSettings'
+  | 'Code'
+  | 'Shortcut';

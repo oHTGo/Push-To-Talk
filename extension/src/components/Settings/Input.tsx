@@ -8,13 +8,13 @@ interface IProps {
 }
 
 const Input: React.FC<IProps> = (props: IProps) => {
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    props.onChange(event.currentTarget.value);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onChange(event.target.value);
   };
 
   return (
     <div className={styles.container}>
-      <input className={styles.input} type="text" onChange={onChange} />
+      <input className={styles.input} value={props.data} type="text" onChange={onChange} />
       <input className={styles.button} type="button" value="↳" onClick={props.onClick} />
     </div>
   );

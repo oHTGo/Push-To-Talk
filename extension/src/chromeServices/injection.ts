@@ -3,6 +3,7 @@ import { IStatus } from '../interfaces/IStatus.interface';
 import { IShortcutService } from './shortcutServices/IShortcutService';
 import { ShortcutServiceFactory } from './shortcutServices/ShortcutServiceFactory';
 import { ShortcutServiceType } from './shortcutServices/ShortcutServiceType';
+import { getStorage } from './storage';
 
 class InjectScript {
   private readonly pushToTalkClassName = 'push-to-talk';
@@ -37,12 +38,23 @@ class InjectScript {
   }
 
   async init() {
+    await this.loadSettings();
     this.startup();
     this.addUI();
     this.runService();
 
-    this.shortcutService = ShortcutServiceFactory.getShortcutService(ShortcutServiceType.GLOBAL);
+    const isLocalSettings = (await getStorage('IsLocalSettings')) === 'true';
+    this.shortcutService = ShortcutServiceFactory.getShortcutService(
+      isLocalSettings ? ShortcutServiceType.LOCAL : ShortcutServiceType.GLOBAL,
+    );
     this.shortcutService.init((message) => console.log(message));
+  }
+
+  async loadSettings() {
+    const turnOffMicroEnabled = (await getStorage('TurnOffMicroEnabled')) === 'true';
+    const turnOffCameraEnabled = (await getStorage('TurnOffCameraEnabled')) === 'true';
+    this.startupStatus.turnOffMicroEnabled = turnOffMicroEnabled;
+    this.startupStatus.turnOffCameraEnabled = turnOffCameraEnabled;
   }
 
   startup() {

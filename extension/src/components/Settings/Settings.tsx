@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Settings.module.css';
 import Help from './Help';
 import Switch from './Switch';
 import LocalSettings from './LocalSetting';
 import GlobalSettings from './GlobalSetting';
+import { getStorage, setStorage } from '../../chromeServices/storage';
 
 const Settings: React.FC = () => {
   const [isLocalSettings, setIsLocalSettings] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      setIsLocalSettings((await getStorage('IsLocalSettings')) === 'true');
+    })();
+  }, []);
+
+  useEffect(() => {
+    setStorage('IsLocalSettings', isLocalSettings.toString());
+  }, [isLocalSettings]);
 
   return (
     <div className={styles.container}>

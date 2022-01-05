@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Configuration from './Configuration';
+import { getStorage, setStorage } from '../../chromeServices/storage';
 
 interface IProps {
   isHidden: boolean;
@@ -7,16 +8,23 @@ interface IProps {
 
 const GlobalSettings: React.FC<IProps> = (props: IProps) => {
   const { isHidden } = props;
-  const [token, setToken] = useState<string>('');
+  const [code, setCode] = useState<string>('');
+
+  useEffect(() => {
+    (async () => {
+      setCode((await getStorage('Code')) ?? '');
+    })();
+  }, []);
+
   const onClick = () => {
-    console.log('Global Settings clicked: ' + token);
+    setStorage('Code', code);
   };
 
   return (
     <Configuration
       label="Code"
-      data={token}
-      onChange={setToken}
+      data={code}
+      onChange={setCode}
       onClick={onClick}
       isHidden={isHidden}
     />

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Configuration from './Configuration';
+import { getStorage, setStorage } from '../../chromeServices/storage';
 
 interface IProps {
   isHidden: boolean;
@@ -8,8 +9,15 @@ interface IProps {
 const LocalSettings: React.FC<IProps> = (props: IProps) => {
   const { isHidden } = props;
   const [shortcut, setShortcut] = useState<string>('');
+
+  useEffect(() => {
+    (async () => {
+      setShortcut((await getStorage('Shortcut')) ?? '');
+    })();
+  }, []);
+
   const onClick = () => {
-    console.log('Local Settings clicked: ' + shortcut);
+    setStorage('Shortcut', shortcut);
   };
 
   return (

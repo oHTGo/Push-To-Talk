@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import styles from './AppStartup.module.css';
+import { getStorage, setStorage } from '../../chromeServices/storage';
 
 const AppStartup: React.FC = () => {
-  const [turnOffMicroEnabled, setTurnOffMicroEnabled] = useState<boolean>(true);
+  const [turnOffMicroEnabled, setTurnOffMicroEnabled] = useState<boolean>(false);
   const [turnOffCameraEnabled, setTurnOffCameraEnabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    (async () => {
+      setTurnOffMicroEnabled((await getStorage('TurnOffMicroEnabled')) === 'true');
+      setTurnOffCameraEnabled((await getStorage('TurnOffCameraEnabled')) === 'true');
+    })();
+  }, []);
 
   const onEnableTurnOffMicro = () => {
     setTurnOffMicroEnabled(true);
+    setStorage('TurnOffMicroEnabled', 'true');
   };
   const onDisableTurnOffMicro = () => {
     setTurnOffMicroEnabled(false);
+    setStorage('TurnOffMicroEnabled', 'false');
   };
   const onEnableTurnOffCamera = () => {
     setTurnOffCameraEnabled(true);
+    setStorage('TurnOffCameraEnabled', 'true');
   };
   const onDisableTurnOffCamera = () => {
     setTurnOffCameraEnabled(false);
+    setStorage('TurnOffCameraEnabled', 'false');
   };
 
   return (
