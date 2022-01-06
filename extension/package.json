@@ -11,8 +11,8 @@
     "typescript": "^4.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "cross-env INLINE_RUNTIME_CHUNK=false GENERATE_SOURCEMAP=false craco build",
+    "start": "cross-env NODE_ENV=development react-scripts start",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false GENERATE_SOURCEMAP=false NODE_ENV=production craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix",
@@ -42,7 +42,6 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/chrome": "^0.0.164",
     "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/websocket": "^1.0.4",
